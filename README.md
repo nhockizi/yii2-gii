@@ -28,26 +28,22 @@ to the ```require``` section of your `composer.json` file.
 
 ```php
 //if your gii modules configuration looks like below:
-    $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
 
-//remove this two lines
+//remove this lines
 ```
 
 ```php
 //Add this into common/config/main-local.php
-    'bootstrap' => 'gii',
-    'modules' => [
-        'gii' => [
-            'class' => 'yii\gii\Module',
-            'generators' => [
-                'Generator Model' => [
-                    'class' => 'nhockizi\gii\generators\model\Generator',
-                ],
-                'Generator Crud' => [
-                    'class'     => 'nhockizi\gii\generators\backend\Generator',
-                ],
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'generators' => [
+            'Generator Model' => [
+                'class' => 'nhockizi\gii\generators\model\Generator',
+            ],
+            'Generator Crud' => [
+                'class'     => 'nhockizi\gii\generators\backend\Generator',
             ],
         ],
-    ],
+    ];
 ```
