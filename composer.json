@@ -1,0 +1,27 @@
+{
+	"name": "nhockizi/yii2-gii",
+	"description": "Yii2 custom generator for gii",
+	"keywords": ["yii2", "gii"],
+	"type": "yii2-extension",
+	"license": "BSD-3-Clause",
+	"support": {
+		"issues": "https://github.com/nhockizi/yii2-gii/issues",
+		"source": "https://github.com/nhockizi/yii2-gii"
+	},
+	"authors": [
+        {
+            "name": "Lâm Xuân Bảo",
+            "email": "nhockizi@gmail.com",
+            "country": "Viet Nam"
+        }
+    ],
+	"require": {
+		"yiisoft/yii2": "~2.0",
+		"yiisoft/yii2-gii": "~2.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"nhockizi\\gii\\": ""
+		}
+	}
+}
