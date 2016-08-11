@@ -1,15 +1,15 @@
 <?php
-namespace zi\generators\backend;
+namespace nhockizi\gii\generators\backend;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\db\Schema;
-use zi\CodeFile;
+use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 
-class Generator extends \zi\Generator
+class Generator extends \yii\gii\Generator
 {
     public $modelClass;
     public $controllerClass;

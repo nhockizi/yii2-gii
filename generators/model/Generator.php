@@ -1,16 +1,16 @@
 <?php
-namespace zi\generators\model;
+namespace nhockizi\gii\generators\model;
 
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\Connection;
 use yii\db\Schema;
-use zi\CodeFile;
+use yii\gii\CodeFile;
 use yii\helpers\Inflector;
 use yii\base\NotSupportedException;
 
-class Generator extends \zi\Generator
+class Generator extends \yii\gii\Generator
 {
     public $db = 'db';
     public $ns = 'backend\models';
