@@ -44,6 +44,9 @@ to the ```require``` section of your `composer.json` file.
             'Generator Crud' => [
                 'class'     => 'nhockizi\gii\generators\backend\Generator',
             ],
+            'Generator Setup' => [
+                'class'     => 'nhockizi\gii\generators\setup\Generator',
+            ],
         ],
     ];
 ```
