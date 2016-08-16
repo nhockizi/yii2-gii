@@ -7,14 +7,14 @@ $params = array_merge(
     require(__DIR__ . "/params-local.php")
 );
 return [
-    "id" => "zi-frontend",
+    "id" => "app-frontend",
     "basePath" => dirname(__DIR__),
     "bootstrap" => ["log"],
     "controllerNamespace" => "frontend\controllers",
     "components" => [
         "request" => [
             "csrfParam" => "_csrf-frontend",
-            "class" => "common\components\RequestSite",
+            "class" => "common\components\Request",
             "web"=> "/frontend/web",
             "enableCsrfValidation" => true,
             "enableCookieValidation"=>true
@@ -25,7 +25,7 @@ return [
             "identityCookie" => ["name" => "_identity-frontend", "httpOnly" => true],
         ],
         "session" => [
-            "name" => "zi-frontend",
+            "name" => "app-frontend",
         ],
         "log" => [
             "traceLevel" => YII_DEBUG ? 3 : 0,

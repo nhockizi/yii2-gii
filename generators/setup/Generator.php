@@ -47,9 +47,6 @@ class Generator extends \yii\gii\Generator
                 Yii::getAlias( '@system/controller/ControllerAdmin.php'), $this->render('system/ControllerAdmin.php')
             );
             $files[] = new CodeFile(
-                Yii::getAlias( '@common/components/RequestAdmin.php'), $this->render('common/components/RequestAdmin.php')
-            );
-            $files[] = new CodeFile(
                 Yii::getAlias( '@backend/web/.htaccess'), $this->render('htaccess.php')
             );
         }
@@ -61,12 +58,15 @@ class Generator extends \yii\gii\Generator
                 Yii::getAlias( '@system/controller/ControllerSite.php'), $this->render('system/ControllerSite.php')
             );
             $files[] = new CodeFile(
-                Yii::getAlias( '@common/components/RequestSite.php'), $this->render('common/components/RequestSite.php')
-            );
-            $files[] = new CodeFile(
                 Yii::getAlias( '@frontend/web/.htaccess'), $this->render('htaccess.php')
             );
         }
+        $files[] = new CodeFile(
+            Yii::getAlias( '@common/components/Request.php'), $this->render('common/components/Request.php')
+        );
+        $files[] = new CodeFile(
+            Yii::getAlias( '../../.htaccess'), $this->render('htaccessSite.php')
+        );
         return $files;
     }
 }

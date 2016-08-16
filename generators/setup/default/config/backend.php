@@ -7,7 +7,7 @@ $params = array_merge(
     require(__DIR__ . "/params-local.php")
 );
 return [
-    "id" => "zi-backend",
+    "id" => "app-backend",
     "basePath" => dirname(__DIR__),
     "controllerNamespace" => "backend\controllers",
     "bootstrap" => ["log"],
@@ -15,8 +15,9 @@ return [
     "components" => [
         "request" => [
             "csrfParam" => "_csrf-backend",
-            "class" => "common\components\RequestAdmin",
+            "class" => "common\components\Request",
             "web"=> "/backend/web",
+            "adminUrl" => "/admin"
         ],
         "user" => [
             "identityClass" => "common\models\User",
@@ -24,7 +25,7 @@ return [
             "identityCookie" => ["name" => "_identity-backend", "httpOnly" => true],
         ],
         "session" => [
-            "name" => "zi-backend",
+            "name" => "app-backend",
         ],
         "log" => [
             "traceLevel" => YII_DEBUG ? 3 : 0,
@@ -43,23 +44,7 @@ return [
             "enablePrettyUrl" => true,
             "showScriptName" => false,
             "rules" => [
-                "<controller:\w+>/<action:\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller:\w+>/<action:\w+>" => "<controller>/<action>",
-                "<controller:\w+-\w+>/<action:\w+>" => "<controller>/<action>",
-                "<controller:\w+-\w+>/<action:\w+-\w+>" => "<controller>/<action>",
-                "<controller:\w+-\w+>/<action:\w+-\w+-\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller:\w+-\w+>/<action:\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller:\w+>/<action:\w+-\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller:\w+-\w+>/<action:\w+-\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller:\w+-\w+-\w+>/<action:\w+>/<id:\d+>" => "<controller>/<action>",
-                "<controller>" => "<controller>/index",
-
-                "<controller:\w+-\w+>/<action:\w+-\w+-\w+>" => "<controller>/<action>",
-                "<controller:\w+-\w+-\w+>/<action:\w+-\w+-\w+>" => "<controller>/<action>",
-                "<action:\w+-\w+-\w+-\w+>" =>"<controller>/<action:\w+-\w+-\w+-\w+>",
-                "<controller:\w+-\w+>/<action:\w+-\w+-\w+-\w+>" =>"<controller>/<action>",
-                "<action:\w+-\w+>" =>"<controller>/<action:\w+-\w+>",
-                "<action:\w+-\w+-\w+>" =>"<controller>/<action:\w+-\w+-\w+>",
+                
             ],
         ],
         

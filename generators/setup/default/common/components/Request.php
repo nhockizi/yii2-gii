@@ -1,16 +1,15 @@
 <?php
 	echo '<?php
 namespace common\components;
-
-class RequestSite extends \yii\web\Request {
+class Request extends \yii\web\Request {
     public $web;
-    public $Url;
+    public $adminUrl;
 
     public function getBaseUrl(){
-        return str_replace($this->web, "", parent::getBaseUrl()) . $this->Url;
+        return str_replace($this->web, "", parent::getBaseUrl()) . $this->adminUrl;
     }
     public function resolvePathInfo(){
-        if($this->getUrl() === $this->Url){
+        if($this->getUrl() === $this->adminUrl){
             return "";
         }else{
             return parent::resolvePathInfo();
