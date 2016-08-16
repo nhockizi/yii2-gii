@@ -44,7 +44,7 @@ class Generator extends \yii\gii\Generator
                 Yii::getAlias( '@backend/config/main.php'), $this->render('config/backend.php')
             );
             $files[] = new CodeFile(
-                Yii::getAlias( '@system/controller/ControllerAdmin.php'), $this->render('system/ControllerAdmin.php')
+                Yii::getAlias( '@system/controller/Controller.php'), $this->render('system/Controller.php')
             );
             $files[] = new CodeFile(
                 Yii::getAlias( '@backend/web/.htaccess'), $this->render('htaccess.php')
@@ -53,9 +53,6 @@ class Generator extends \yii\gii\Generator
         if ( $this->frontend ) {
             $files[] = new CodeFile(
                 Yii::getAlias( '@frontend/config/main.php'), $this->render('config/frontend.php')
-            );
-            $files[] = new CodeFile(
-                Yii::getAlias( '@system/controller/ControllerSite.php'), $this->render('system/ControllerSite.php')
             );
             $files[] = new CodeFile(
                 Yii::getAlias( '@frontend/web/.htaccess'), $this->render('htaccess.php')

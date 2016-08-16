@@ -4,9 +4,8 @@ namespace system\controller;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 
-class ControllerAdmin extends \yii\web\Controller {
+class Controller extends \yii\web\Controller {
     public function behaviors()
     {
         return [

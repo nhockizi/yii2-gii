@@ -131,13 +131,6 @@ class Generator extends \yii\gii\Generator
                 Yii::getAlias( '@' . str_replace( '\\', '/', $this->sysControllerClass ) ) . '/Controller.php', $this->render( 'system/Controller.php')
             );
         }
-        $path = strtr(Yii::getAlias( '@' . str_replace( '\\', '/', $this->sysControllerClass ) ). '/Request.php', '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
-        
-        if(!file_exists($path)){
-            $files[] = new CodeFile(
-                Yii::getAlias( '@' . str_replace( '\\', '/', $this->sysControllerClass ) ) . '/Request.php', $this->render( 'system/Request.php')
-            );
-        }
         if (!empty($this->searchModelClass)) {
             $searchModel = Yii::getAlias('@' . str_replace('\\', '/', ltrim($this->searchModelClass, '\\') . '.php'));
             $files[] = new CodeFile($searchModel, $this->render('search.php'));

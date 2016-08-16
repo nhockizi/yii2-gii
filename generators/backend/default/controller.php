@@ -29,7 +29,7 @@ use <?= ltrim($generator->modelClass, '\\') ?>;
 <?php if($generator->enableRole == 0):?>
 use <?= ltrim($generator->baseControllerClass, '\\') ?>;
 <?php else:?>
-use <?= ltrim($generator->sysControllerClass, '\\') ?>;
+use <?= ltrim($generator->sysControllerClass, '\\') ?>\Controller;
 <?php endif;?>
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -38,6 +38,21 @@ use backend\utilities\table\<?= $modelClass ?>Table;
 
 class <?= $controllerClass ?> extends <?= StringHelper::basename($generator->baseControllerClass) . "\n" ?>
 {
+    public function actions()
+    {
+        return [
+            'datatables' => [
+                'class' => 'nhockizi\widgets\DataTablesAction',
+                'query' => <?= $modelClass ?>::find(),
+                'applyOrder' => function($query, $columns, $order) {
+                    return $query;
+                },
+                'applyFilter' => function($query, $columns, $search) {
+                    return $query;
+                },
+            ],
+        ];
+    }
 	public function actionAjaxTable() {
 		if ( Yii::$app->request->isAjax ):
 			$dataTableFacade = new DataTableFacade( new <?= $modelClass ?>Table( Yii::$app->request->post() ) );

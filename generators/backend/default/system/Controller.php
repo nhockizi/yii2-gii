@@ -1,10 +1,9 @@
 <?php
     echo '<?php
-namespace common\components;
+namespace system\controller;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 
 class Controller extends \yii\web\Controller {
     public function behaviors()
