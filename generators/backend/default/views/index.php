@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             "method"=>"post",
             "queryParams" => ["id"],
             "typeView"=>"page",
-            "label" =>\'"<button class="btn btn-success btn-view"><i class="glyphicon glyphicon-eye-open"></i></button>\',
+            "label" =>\'<button class="btn btn-success btn-view"><i class="glyphicon glyphicon-eye-open"></i></button>\',
         ]
     ],
     "info"=> false,
