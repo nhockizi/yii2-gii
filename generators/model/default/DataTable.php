@@ -1,9 +1,9 @@
 <?php
 echo '<?php
-namespace backend\utilities\table;
+namespace system\utilities\table;
 
-abstract class DataTable {
-	public $draw = 0;
+class DataTable {
+	public $draw = 1;
 	public $length = 10;
 	public $start = 0;
 	public $searchValue = "";
@@ -13,7 +13,7 @@ abstract class DataTable {
 
 	public function __construct( $argument ) {
 		$this->draw   = $argument["draw"];
-		$this->length = $argument["length"] ?: 10;
+		$this->length = $argument["length"];
 		$this->start  = $argument["start"];
 		if ( array_key_exists( "data", $argument ) ) {
 			$this->data = $argument["data"];
@@ -26,11 +26,4 @@ abstract class DataTable {
 			}
 		}
 	}
-
-	public abstract function getData();
-	public abstract function getModels();
-	public abstract function getColumn();
-}
-
-?>';
-?>
+}';

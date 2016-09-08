@@ -6,6 +6,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 class Controller extends \yii\web\Controller {
+    public $enableCsrfValidation = false;
     public function behaviors()
     {
         return [
@@ -17,7 +18,6 @@ class Controller extends \yii\web\Controller {
                         "allow" => true,
                     ],
                     [
-                        "actions" => ["logout", "index"],
                         "allow" => true,
                         "roles" => ["@"],
                     ],

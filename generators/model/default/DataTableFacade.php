@@ -1,36 +1,33 @@
 <?php
 echo '<?php
-namespace backend\utilities\table;
+namespace system\utilities\table;
 
-abstract class DataTable {
-	public $draw = 0;
-	public $length = 10;
-	public $start = 0;
-	public $searchValue = "";
-	public $column = 0;
-	public $direction = SORT_DESC;
-	public $totalRecords = 0;
+class DataTableFacade
+{
+    private $dataTable = "";
 
-	public function __construct( $argument ) {
-		$this->draw   = $argument["draw"];
-		$this->length = $argument["length"] ?: 10;
-		$this->start  = $argument["start"];
-		if ( array_key_exists( "data", $argument ) ) {
-			$this->data = $argument["data"];
-		}
-		$this->searchValue = $argument["search"]["value"];
-		if (array_key_exists("order", $argument)) {
-			$this->column      = $argument["order"][0]["column"];
-			if ( $argument["order"][0]["dir"] === "asc" ) {
-				$this->direction = SORT_ASC;
-			}
-		}
-	}
+    public function __construct(DataTable $dataTable)
+    {
+        $this->dataTable = $dataTable;
+    }
 
-	public abstract function getData();
-	public abstract function getModels();
-	public abstract function getColumn();
-}
+    public function getData()
+    {
+        return $this->dataTable->getData();
+    }
 
-?>';
-?>
+    public function getDraw()
+    {
+        return $this->dataTable->draw;
+    }
+
+    public function getTotalRecord()
+    {
+        return $this->dataTable->totalRecords;
+    }
+
+    public function getTotalFiltered()
+    {
+        return $this->dataTable->totalRecords;
+    }
+}';
