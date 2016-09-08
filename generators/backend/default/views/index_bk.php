@@ -7,107 +7,11 @@ $nameAttribute     = $generator->getNameAttribute();
 $excludesAttribute = [ 'is_delete', 'created_by', 'created_date', 'updated_date', 'id', 'updated_by' ];
 $idName            = Inflector::camel2id( StringHelper::basename( $generator->controllerName ), '_' );
 $Url            = Inflector::camel2id( StringHelper::basename( $generator->controllerName ), '-' );
-echo '<?php
-use nhockizi\widgets\DataTables;
-use yii\helpers\Url;
-$this->title = '.$generator->generateString( Inflector::pluralize( Inflector::camel2words( StringHelper::basename( $generator->controllerName ) ) ) ).';
-$this->params["breadcrumbs"][] = $this->title;
-?>
-<?= 
-    DataTables::widget([
-        "id" => "'.$idName.'_table",
-        "dom" => "Bfrtip",
-        "columns" => [';
-$i = 0;
-foreach ( $generator->getColumnNames() as $key => $attribute ):
-    if (!in_array( $attribute, $excludesAttribute, true ) ):
-        if($i == 0):
-            echo "\n";
-        endif;
-        $check = explode('_', $attribute);
-        $name = '';
-        foreach ($check as $key_check => $value) {
-            if($value != 'id'):
-                if($key_check == 0):
-                    $name .= ucfirst($value);
-                else:
-                    $name .= ' '.ucfirst($value);
-                endif;
-            endif;
-        }
-        echo "\t\t\t[\n \t\t\t\t'title' => '".$name."',\n \t\t\t\t'data' => '".$attribute."' ,\n \t\t\t\t'orderable' => 'false'\n\t\t\t],\n";
-        $i++;
-    endif;
-endforeach;  
-echo "\t\t],
-    \t'fields' => [
-";
-$i = 0;
-foreach ( $generator->getColumnNames() as $key => $attribute ):
-    if (!in_array( $attribute, $excludesAttribute, true ) ):
-        $check = explode('_', $attribute);
-        $name = '';
-        foreach ($check as $key_check => $value) {
-            if($value != 'id'):
-                if($key_check == 0):
-                    $name .= ucfirst($value);
-                else:
-                    $name .= ' '.ucfirst($value);
-                endif;
-            endif;
-        }
-        echo "\t\t\t[ \n \t\t\t\t'label' => '".$name." :', \n \t\t\t\t'name' => '".$attribute."' \n\t\t\t],\n";
-        $i++;
-    endif;
-endforeach;
-echo "\t\t],
-        'bSort' => 'false',
-        'processing'=> 'true',
-        'serverSide' => 'true',
-        'select' => 'true',
-        'ajax' => Url::to(['".$Url."/load-data']),
-        'buttons' => [
-            [ 'extend' => 'create', 'editor' => 'editor' ],
-            [ 'extend' => 'edit',   'editor' => 'editor' ],
-            [ 'extend' => 'remove', 'editor' => 'editor' ]
-        ],
-        'paging' => 'true',
-    ])
-?>";
 echo '
 <table id="'.$idName.'_table" class="display responsive nowrap" cellspacing="0" width="100%">
 </table>
 <?php
     $this->registerJs("
-        var editor;
-        editor = new $.fn.dataTable.Editor( {
-            ajax:\'".Url::to([\''.$Url.'/load-data\'])."\',
-            \'table\': \'#'.$idName.'_table\',
-            \'idSrc\': \'id\',
-            \'fields\': [';
-$i = 0;
-foreach ( $generator->getColumnNames() as $key => $attribute ):
-    if (!in_array( $attribute, $excludesAttribute, true ) ):
-        if($i == 0):
-            echo "\n";
-        endif;
-        $check = explode('_', $attribute);
-        $name = '';
-        foreach ($check as $key_check => $value) {
-            if($value != 'id'):
-                if($key_check == 0):
-                    $name .= ucfirst($value);
-                else:
-                    $name .= ' '.ucfirst($value);
-                endif;
-            endif;
-        }
-        echo "\t\t\t\t{ \n \t\t\t\t\t'label': '".$name." :', \n \t\t\t\t\t'name': '".$attribute."' \n \t\t\t\t},\n";
-        $i++;
-    endif;
-endforeach;
-echo "\t\t\t".']
-        } );
         var table = $(\'#'.$idName.'_table\').DataTable( {
             dom: \'Bfrtip\',
             ajax:\'".Url::to([\''.$Url.'/load-data\'])."\',
@@ -137,9 +41,28 @@ endforeach;
 echo "\t\t\t],
             select: true,
             buttons: [
-                { extend: 'create', editor: editor },
-                { extend: 'edit',   editor: editor },
-                { extend: 'remove', editor: editor }
+                [
+                    'text' : 'Create',
+                    'action' : function(e,dt,node,config){
+                        Create();
+                    }
+                ],
+                [
+                    'extend' : 'selectedSingle',
+                    'text' : 'Edit',
+                    'action' : function(e,dt,node,config){
+                        var id = dt.rows( { selected: true } ).data().pluck('id')[0];
+                        Edit(id);
+                    }
+                ],
+                [
+                    'extend' : 'selected',
+                    'text' : 'Delete',
+                    'action' : function(e,dt,node,config){
+                        var id = dt.rows( { selected: true } ).data().pluck('id')[0];
+                        Edit(id);
+                    }
+                ]
             ],
             'bSort' : false,
             fixedColumns: {
@@ -166,5 +89,16 @@ echo "\t\t\t],
         });
     \");
 ?>
+<script type='text/javascript'>
+    function Create(){
+        alert('create');
+    }
+    function Edit(id){
+        alert(id);
+    }
+    function Delete(id){
+        alert(id);
+    }
+</script>";
 ";
 ?>

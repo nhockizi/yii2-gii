@@ -236,6 +236,7 @@ class Generator extends \yii\gii\Generator
             $viewPath = $this->getViewPath();
             $templatePath = $this->getTemplatePath() . '/views';
             $files[] = new CodeFile("$viewPath/index.php", $this->render("views/index.php"),$params);
+            $files[] = new CodeFile("$viewPath/index_bk.php", $this->render("views/index_bk.php"),$params);
         }
 
         return $files;
