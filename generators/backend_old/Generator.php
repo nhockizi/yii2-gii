@@ -1,15 +1,17 @@
 <?php
-namespace zi\generators\backend_old;
-use Yii;
-use yii\db\ActiveRecord;
-use yii\db\BaseActiveRecord;
-use yii\db\Schema;
-use zi\CodeFile;
-use yii\helpers\Inflector;
-use yii\helpers\VarDumper;
-use yii\web\Controller;
+namespace nhockizi\gii\generators\backend_old;
 
-class Generator extends \zi\Generator
+use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\db\Connection;
+use yii\db\Schema;
+use yii\db\TableSchema;
+use yii\gii\CodeFile;
+use yii\helpers\Inflector;
+use yii\base\NotSupportedException;
+
+class Generator extends \yii\gii\Generator
 {
     public $modelClass;
     public $controllerClass;
