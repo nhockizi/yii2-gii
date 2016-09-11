@@ -29,42 +29,54 @@ use system\utilities\table\<?= StringHelper::basename($generator->controllerName
 
 class <?= StringHelper::basename($generator->controllerName) ?>Controller extends Controller
 {
-	public function actionAjaxTable() {
-		if ( Yii::$app->request->isAjax ):
-			$dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->post() ) );
-			$dataArray       = $dataTableFacade->getData();
-			$json            = Json::encode( $dataArray );
-			$data            = '{"draw": ' . $dataTableFacade->getDraw() . ',"recordsTotal": ' . $dataTableFacade->getTotalRecord() . ',"recordsFiltered": ' . $dataTableFacade->getTotalFiltered() . ',"data": ' . $json . '}';
+    public function actionAjaxTable() {
+        if ( Yii::$app->request->isAjax ):
+            $dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->post() ) );
+            $dataArray       = $dataTableFacade->getData();
+            $json            = Json::encode( $dataArray );
+            $data            = '{"draw": ' . $dataTableFacade->getDraw() . ',"recordsTotal": ' . $dataTableFacade->getTotalRecord() . ',"recordsFiltered": ' . $dataTableFacade->getTotalFiltered() . ',"data": ' . $json . '}';
 
-			return $data;
+            return $data;
         endif;
-	}
+    }
     public function actionLoadData(){
         if ( Yii::$app->request->isAjax ):
-            $action = Yii::$app->request->post('action','');
-            $data = Yii::$app->request->post('data','');
-            if($action != '' && $data != ''):
-                foreach ($data as $key => $value):
-                    if($action == 'create'):
-                        
-                    elseif($action == 'edit'):
-                        
-                    elseif($action == 'remove'):
-
-                    endif;
-                endforeach;
-            else:
-                $dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->get() ) );
-                $dataArray       = $dataTableFacade->getData();
-                $json            = Json::encode( $dataArray );
-                $data            = '{"draw": ' . $dataTableFacade->getDraw() . ',"recordsTotal": ' . $dataTableFacade->getTotalRecord() . ',"recordsFiltered": ' . $dataTableFacade->getTotalFiltered() . ',"data": ' . $json . '}';
-                return $data;
-            endif;
+            $dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->get() ) );
+            $dataArray       = $dataTableFacade->getData();
+            $json            = Json::encode( $dataArray );
+            $data            = '{"draw": ' . $dataTableFacade->getDraw() . ',"recordsTotal": ' . $dataTableFacade->getTotalRecord() . ',"recordsFiltered": ' . $dataTableFacade->getTotalFiltered() . ',"data": ' . $json . '}';
+            return $data;
         endif;
     }
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    public function actionCreate()
+    {
+        return $this->renderPartial('form', [
+                'model' => $model,
+            ]);
+    }
+    public function actionView()
+    {
+        if ( Yii::$app->request->isAjax ):
+            <?= $actionParams ?> = Yii::$app->request->post( 'id', '' );
+            $model = $this->findModel(<?= $actionParams ?>);
+            return $this->renderPartial('_view', [
+                    'model' => $model,
+                ]);
+        endif;
+    }
+    public function actionUpdate()
+    {
+        if ( Yii::$app->request->isAjax ):
+            <?= $actionParams ?> = Yii::$app->request->post( 'id', '' );
+            $model = $this->findModel(<?= $actionParams ?>);
+            return $this->renderPartial('_form', [
+                    'model' => $model,
+                ]);
+        endif;
     }
     protected function findModel($id)
     {

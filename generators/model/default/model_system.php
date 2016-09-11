@@ -25,7 +25,10 @@ class <?= $className ?>System extends <?= '\\' . ltrim($generator->baseClass, '\
         ];
     }
 <?php foreach ($relations as $name => $relation): ?>
-
+    public function rules()
+    {
+        return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
+    }
     public function get<?= $name ?>()
     {
         <?= $relation[0] . "\n" ?>
