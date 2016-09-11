@@ -61,8 +61,8 @@ class <?= StringHelper::basename($generator->controllerName) ?>Controller extend
     public function actionView()
     {
         if ( Yii::$app->request->isAjax ):
-            <?= $actionParams ?> = Yii::$app->request->post( 'id', '' );
-            $model = $this->findModel(<?= $actionParams ?>);
+            $id = Yii::$app->request->post( 'id', '' );
+            $model = $this->findModel($id);
             return $this->renderPartial('_view', [
                     'model' => $model,
                 ]);
@@ -71,11 +71,21 @@ class <?= StringHelper::basename($generator->controllerName) ?>Controller extend
     public function actionUpdate()
     {
         if ( Yii::$app->request->isAjax ):
-            <?= $actionParams ?> = Yii::$app->request->post( 'id', '' );
-            $model = $this->findModel(<?= $actionParams ?>);
+            $id = Yii::$app->request->post( 'id', '' );
+            $model = $this->findModel($id);
             return $this->renderPartial('_form', [
                     'model' => $model,
                 ]);
+        endif;
+    }
+    public function actionSave() {
+        if ( Yii::$app->request->isAjax ):
+            $id          = Yii::$app->request->post( 'id', '' );
+            $model       = $id !== '' ? $this->findModel( $id ) : new <?= $modelClass ?>();
+
+            if ( $model->load( Yii::$app->request->post() ) ) {
+                $model->save( false );
+            }
         endif;
     }
     protected function findModel($id)
