@@ -54,7 +54,8 @@ class <?= StringHelper::basename($generator->controllerName) ?>Controller extend
     }
     public function actionCreate()
     {
-        return $this->renderPartial('form', [
+        $model = new <?=StringHelper::basename($generator->controllerName)?>();
+        return $this->renderPartial('_form', [
                 'model' => $model,
             ]);
     }
@@ -68,7 +69,7 @@ class <?= StringHelper::basename($generator->controllerName) ?>Controller extend
                 ]);
         endif;
     }
-    public function actionUpdate()
+    public function actionEdit()
     {
         if ( Yii::$app->request->isAjax ):
             $id = Yii::$app->request->post( 'id', '' );
@@ -80,12 +81,24 @@ class <?= StringHelper::basename($generator->controllerName) ?>Controller extend
     }
     public function actionSave() {
         if ( Yii::$app->request->isAjax ):
-            $id          = Yii::$app->request->post( 'id', '' );
-            $model       = $id !== '' ? $this->findModel( $id ) : new <?= $modelClass ?>();
-
-            if ( $model->load( Yii::$app->request->post() ) ) {
+            $request = Yii::$app->request;
+            $id          = $request->post('<?=StringHelper::basename($generator->controllerName)?>')['id'];
+            $model       = $id !== '' ? $this->findModel( $id ) : new <?=StringHelper::basename($generator->controllerName)?>();
+            if ( $model->load( $request->post() ) ) {
                 $model->save( false );
             }
+        endif;
+    }
+    public function actionCheck(){
+        if(Yii::$app->request->isAjax):
+            $id = $_POST['id'];
+            return $this->renderPartial("/general/_form_delete",['id' => $id]);
+        endif;
+    }
+    public function actionDelete(){
+        if(Yii::$app->request->isAjax):
+            $id = $_POST['id'];
+            <?=StringHelper::basename($generator->controllerName)?>::updateALl(array( 'is_delete' => 0 ), ' id in ('.$id.')' );
         endif;
     }
     protected function findModel($id)

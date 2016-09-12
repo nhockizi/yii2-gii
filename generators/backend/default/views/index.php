@@ -17,25 +17,23 @@ $this->params["breadcrumbs"][] = $this->title;
     DataTables::widget([
         "id" => "'.$idName.'_table",
         "dom" => "Bfrtip",
-        "columns" => [
-            [
-                "data" => "null",
-                "defaultContent" => "",
-                "className" => "control",
-                "orderable" => "false"
-            ],
-            [
+        "columns" => ['."\n";
+if(count($generator->getColumnNames()) > 3){
+        echo "\t\t\t".'[
+            "data" => "null",
+            "defaultContent" => "",
+            "className" => "control",
+            "orderable" => "false"
+        ],'."\n";
+}
+        echo "\t\t\t".'[
                 "data" => "null",
                 "defaultContent" => "",
                 "className" => "select-checkbox",
                 "orderable" => "false"
-            ],';
-$i = 0;
+            ],'."\n";
 foreach ( $generator->getColumnNames() as $key => $attribute ):
     if (!in_array( $attribute, $excludesAttribute, true ) ):
-        if($i == 0):
-            echo "\n";
-        endif;
         $check = explode('_', $attribute);
         $name = '';
         foreach ($check as $key_check => $value) {
@@ -48,18 +46,17 @@ foreach ( $generator->getColumnNames() as $key => $attribute ):
             endif;
         }
         echo "\t\t\t[\n \t\t\t\t'title' => '".$name."',\n \t\t\t\t'data' => '".$attribute."' ,\n \t\t\t\t'orderable' => 'false'\n\t\t\t],\n";
-        $i++;
     endif;
 endforeach;
-echo "\t\t\t[
-                'data' => '' ,
-                'render' => 'function ( data, type, row ) {
-                                return \' <button type=\"button\" onclick=\"Edit(\'+row.id+\');\">Edit</button> <button type=\"button\" onclick=\"Delete(\'+row.id+\');\">Delete</button>\';
-                            }',
-                'orderable' => 'false'
-            ]
-        ],\n";
-echo "\t\t'bSort' => 'false',
+// echo "\t\t\t[
+//                 'data' => '' ,
+//                 'render' => 'function ( data, type, row ) {
+//                                 return \' <button type=\"button\" onclick=\"Edit(\'+row.id+\');\">Edit</button> <button type=\"button\" onclick=\"Delete(\'+row.id+\');\">Delete</button>\';
+//                             }',
+//                 'orderable' => 'false'
+//             ]
+//         ],\n";
+echo "\t\t],\n\t\t'bSort' => 'false',
         'select' => 'true',
         'ajax' => Url::to(['".$Url."/load-data']),
         'buttons' => [
@@ -81,6 +78,7 @@ echo "\t\t'bSort' => 'false',
                 'extend' => 'selected',
                 'text' => 'Delete',
                 'action' => 'function(e,dt,node,config){
+                    var id = dt.rows( { selected: true } ).data().pluck(\"id\")[0];
                     Delete(id);
                 }'
             ]
@@ -95,13 +93,65 @@ echo "\t\t'bSort' => 'false',
 ?>
 <script type='text/javascript'>
     function Create(){
-        alert('create');
+        $.ajax({
+            url: '<?= Url::to(['".$Url."/create']) ?>',
+            success: function(result){
+                $('#modal-1 .modal-content').html(result);
+                $('#modal-1').modal();
+            }
+        });
     }
     function Edit(id){
-        alert(id);
+        $.ajax({
+            url: '<?= Url::to(['".$Url."/edit']) ?>',
+            data:{'id':id},
+            type:'post',
+            success: function(result){
+                $('#modal-1 .modal-content').html(result);
+                $('#modal-1').modal();
+            }
+        });
+    }
+    function Save(id){
+        var formData = new FormData(document.querySelector('#form_".$idName."'));
+        $.ajax(
+            {
+                url: '<?= Url::to(['".$Url."/save']) ?>',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false
+            }
+        ).success(function (result) {
+            RefreshTable();
+            $('#modal-1').modal('hide');
+        });
     }
     function Delete(id){
-        alert(id);
+        $.ajax({
+            url: '<?= Url::to(['".$Url."/check']) ?>',
+            data : {'id':id},
+            type:'POST',
+            success : function(result) {
+                $('#modal-1 .modal-content').html(result);
+                $('#modal-1').modal();
+            }
+        })
+    }
+    function actionRemoveGeneral(id){
+        $.ajax({
+            url: '<?= Url::to(['".$Url."/delete']) ?>',
+            data : {'id':id},
+            type: 'POST',
+            success : function(result) {
+                RefreshTable();
+                $('#modal-1').modal('hide');
+
+           }
+        })
+    }
+    function RefreshTable(){
+        $('#school_table').DataTable().ajax.reload( null, false );
     }
 </script>";
 ?>

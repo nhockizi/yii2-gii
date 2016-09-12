@@ -224,10 +224,9 @@ class Generator extends \yii\gii\Generator
             $viewPath = $this->getViewPath();
             $templatePath = $this->getTemplatePath() . '/views';
             $files[] = new CodeFile("$viewPath/index.php", $this->render("views/index.php"),$params);
-            // $files[] = new CodeFile("$viewPath/_form.php", $this->render("views/_form.php"),$params);
-            // $files[] = new CodeFile("$viewPath/view.php", $this->render("views/view.php"),$params);
-            // $files[] = new CodeFile("$viewPath/_modal_delete.php", $this->render("views/index.php"),$params);
-            // $files[] = new CodeFile("$viewPath/index_bk.php", $this->render("views/index_bk.php"),$params);
+            $files[] = new CodeFile("$viewPath/_form.php", $this->render("views/_form.php"),$params);
+            $files[] = new CodeFile("$viewPath/_view.php", $this->render("views/_view.php"),$params);
+            $files[] = new CodeFile(Yii::getAlias( '@backend/views/general/_form_delete').'.php', $this->render('views/_modal_delete.php'),$params);
         }
 
         return $files;
@@ -241,11 +240,11 @@ class Generator extends \yii\gii\Generator
     }
     public function getViewPath()
     {
-        if (empty($this->viewPath)) {
+        // if (empty($this->viewPath)) {
             return Yii::getAlias('@backend/views/' . $this->getControllerID());
-        } else {
-            return Yii::getAlias($this->viewPath);
-        }
+        // } else {
+        //     return Yii::getAlias($this->viewPath);
+        // }
     }
     public function getNameAttribute()
     {
