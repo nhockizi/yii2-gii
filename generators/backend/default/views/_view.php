@@ -28,7 +28,7 @@ foreach ( $generator->getColumnNames() as $key => $attribute ):
 	else:
 		if (!in_array($attribute, $excludesAttribute, true)):
 			echo "\t\t\t";
-			echo '<div class="col-md-4 form-group">'."\n";
+			echo '<div class="form-group">'."\n";
 			echo "\t\t\t\t";
 			if (substr($attribute,-2) === "id"):
 				$label = "select_";
