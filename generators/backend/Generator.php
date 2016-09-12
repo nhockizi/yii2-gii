@@ -224,9 +224,9 @@ class Generator extends \yii\gii\Generator
             $viewPath = $this->getViewPath();
             $templatePath = $this->getTemplatePath() . '/views';
             $files[] = new CodeFile("$viewPath/index.php", $this->render("views/index.php"),$params);
-            $files[] = new CodeFile("$viewPath/_form.php", $this->render("views/_form.php"),$params);
-            $files[] = new CodeFile("$viewPath/view.php", $this->render("views/view.php"),$params);
-            $files[] = new CodeFile("$viewPath/_modal_delete.php", $this->render("views/index.php"),$params);
+            // $files[] = new CodeFile("$viewPath/_form.php", $this->render("views/_form.php"),$params);
+            // $files[] = new CodeFile("$viewPath/view.php", $this->render("views/view.php"),$params);
+            // $files[] = new CodeFile("$viewPath/_modal_delete.php", $this->render("views/index.php"),$params);
             // $files[] = new CodeFile("$viewPath/index_bk.php", $this->render("views/index_bk.php"),$params);
         }
 
