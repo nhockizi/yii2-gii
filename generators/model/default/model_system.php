@@ -4,7 +4,7 @@ echo "<?php\n";
 namespace <?= $generator->systemNS ?>\system;
 use Yii;
 
-class <?= $className ?>System extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
+class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
     public static function tableName()
     {
@@ -24,11 +24,11 @@ class <?= $className ?>System extends <?= '\\' . ltrim($generator->baseClass, '\
 <?php endforeach; ?>
         ];
     }
-<?php foreach ($relations as $name => $relation): ?>
     public function rules()
     {
         return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
     }
+<?php foreach ($relations as $name => $relation): ?>
     public function get<?= $name ?>()
     {
         <?= $relation[0] . "\n" ?>

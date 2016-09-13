@@ -139,7 +139,7 @@ class Generator extends \yii\gii\Generator
                 'relations' => isset($relations[$tableName]) ? $relations[$tableName] : [],
             ];
             $files[] = new CodeFile(
-                Yii::getAlias('@' . str_replace('\\', '/', $this->systemNS)) . '/system/' . $modelClassName . 'System.php',
+                Yii::getAlias('@' . str_replace('\\', '/', $this->systemNS)) . '/system/' . $modelClassName . '.php',
                 $this->render('model_system.php', $params)
             );
             $path = strtr(Yii::getAlias( '@' . str_replace( '\\', '/', $this->systemNS ) ) . '/' . $modelClassName . '.php', '/\\', DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR);
