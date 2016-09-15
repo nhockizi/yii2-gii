@@ -29,16 +29,6 @@ use system\utilities\table\<?= StringHelper::basename($generator->controllerName
 
 class <?= StringHelper::basename($generator->controllerName) ?>Controller extends Controller
 {
-    public function actionAjaxTable() {
-        if ( Yii::$app->request->isAjax ):
-            $dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->post() ) );
-            $dataArray       = $dataTableFacade->getData();
-            $json            = Json::encode( $dataArray );
-            $data            = '{"draw": ' . $dataTableFacade->getDraw() . ',"recordsTotal": ' . $dataTableFacade->getTotalRecord() . ',"recordsFiltered": ' . $dataTableFacade->getTotalFiltered() . ',"data": ' . $json . '}';
-
-            return $data;
-        endif;
-    }
     public function actionLoadData(){
         if ( Yii::$app->request->isAjax ):
             $dataTableFacade = new DataTableFacade( new <?= StringHelper::basename($generator->controllerName) ?>Table( Yii::$app->request->get() ) );

@@ -1,18 +1,25 @@
 <?php
-namespace zi\generators\libary;
+namespace nhockizi\gii\generators\library;
 
 use Yii;
-use zi\CodeFile;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
+use yii\db\Connection;
+use yii\db\Schema;
+use yii\db\TableSchema;
+use yii\gii\CodeFile;
+use yii\helpers\Inflector;
+use yii\base\NotSupportedException;
 
-class Generator extends \zi\Generator
+class Generator extends \yii\gii\Generator
 {
     public $generateDataTable = false;
     public $generateAsset = false;
     public $tableNs = 'system\assets';
-    public $tableJs = 'backend\web\libary';
+    public $tableJs = 'backend\web\library';
 
     public function getName() {
-        return 'Libary Generator';
+        return 'Library Generator';
     }
     public function rules()
     {
