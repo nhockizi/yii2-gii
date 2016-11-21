@@ -44,7 +44,8 @@ return [
             "enablePrettyUrl" => true,
             "showScriptName" => false,
             "rules" => [
-                
+                "<module>/<action:\w+>" => "<module>/default/<action>",
+                "<module>/<action:\w+>/<id:\d+>" => "<module>/default/<action>",
             ],
         ],
         
