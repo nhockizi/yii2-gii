@@ -27,7 +27,7 @@ class <?= $tableClassName ?> extends DataTable
 				}
 			?>
 			default:
-				$field = 'name';
+				$field = 'id';
 				break;
 		}
 		return $field;
@@ -43,7 +43,7 @@ class <?= $tableClassName ?> extends DataTable
 
 		$this->totalRecords = $models->count();
 
-		$models = $models->andFilterWhere(['or',['like', 'name', $this->searchValue]])
+		$models = $models
 		               ->limit($this->length)
 		               ->offset($this->start)
 		               ->orderBy([$column => $this->direction])
