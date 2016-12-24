@@ -68,9 +68,9 @@ $this->params['breadcrumbs'][] = $this->title;
             leftColumns: 1,
             rightColumns: 1
         },
-        'info': false,
-        'searching': false,
-        'lengthChange': false,
+        // 'info': false,
+        // 'searching': false,
+        // 'lengthChange': false,
         'modal':'<?=$generator->formType?>'
     };
 	datatableHandle.init(urls);
