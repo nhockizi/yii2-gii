@@ -29,8 +29,8 @@ use <?= ltrim($generator->modelClass, '\\') ?>;
 use system\controller\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\utilities\table\DataTableFacade;
-use backend\utilities\table\<?= $modelClass ?>Table;
+use system\utilities\table\DataTableFacade;
+use system\utilities\table\<?= $modelClass ?>Table;
 
 class <?= $controllerClass ?> extends Controller
 {
